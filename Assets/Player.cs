@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5;
     public float jumpSpeed = 10;
     public float jumpHeight = 3;
+    public LayerMask layerMask;
     
     public bool onGround;
     Rigidbody2D rb;
@@ -16,6 +17,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        var hit = Physics2D.Raycast(transform.position, Vector2.down,0.7f,layerMask);
+        onGround = hit.collider != null;
+        
+        
         if (onGround && Input.GetKeyDown(KeyCode.Space))
         {
             var speed = Mathf.Sqrt(jumpHeight * -rb.gravityScale * Physics2D.gravity.y * 2f);
@@ -25,15 +30,5 @@ public class Player : MonoBehaviour
 
 
         rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed,rb.velocity.y);
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        onGround = true;
-    }
-
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        onGround = false;
     }
 }
