@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     
     public bool onGround;
     Rigidbody2D rb;
+    
 
     private void Start()
     {
