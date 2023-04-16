@@ -9,11 +9,13 @@ public class Player : MonoBehaviour
     
     public bool onGround;
     Rigidbody2D rb;
+    private SpriteRenderer renderer;
     
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -30,6 +32,12 @@ public class Player : MonoBehaviour
         }
 
 
-        rb.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed,rb.velocity.y);
+        var h = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(h * moveSpeed,rb.velocity.y);
+
+        if (h != 0)
+        {
+            renderer.flipX = h < 0;
+        }
     }
 }
