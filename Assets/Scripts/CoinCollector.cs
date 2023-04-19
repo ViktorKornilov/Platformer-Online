@@ -7,9 +7,10 @@ public class CoinCollector : MonoBehaviour
 {
 
     public TMP_Text coinsText;
-
     public float coinsCount = 0;
-
+    public GameObject teleporter;
+    public int coinsToTeleport = 3;
+    
     void Update()
     {
         coinsText.text = coinsCount.ToString();
@@ -19,7 +20,13 @@ public class CoinCollector : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
-            coinsCount += 1;
+            coinsCount++;
+            
+            if (coinsCount >= coinsToTeleport)
+            {
+                teleporter.SetActive(true);
+            }
+            
             Destroy(collision.gameObject);
         }
     }
